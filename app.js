@@ -7,7 +7,7 @@ const http = require('http');
 var app = express();
 var srv = http.createServer(app);
 var socket = io(srv);
-const PORT = 3030;
+const PORT = 8080;
 
 app.use(express.static('./public'));
 

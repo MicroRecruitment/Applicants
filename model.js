@@ -11,10 +11,9 @@ class Model {
       ssn: registration_data.ssn,
       email: registration_data.email,
       username: registration_data.username,
-      password: registration_data.password
+      password: registration_data.password,
       role_id: 1
     }
-
     var result = await db.AddUser(db_data);
     
     var ret = {
@@ -23,7 +22,8 @@ class Model {
     }
 
     if ('error' in result) {
-      console.log('DB Failed');
+      console.log('--- DB Failed ---');
+      console.log(result);
     } else {
       console.log('DB Success');
       ret.status = true;

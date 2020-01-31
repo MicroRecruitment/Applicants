@@ -11,8 +11,8 @@ class Controller {
     this.logic_ = new model();
     this.fnc_ = {
       register: async function(frame) {
-        console.log('Registering.');
-        return that.logic_.Register(frame.registration_data);
+        console.log('Register controller fnc');
+        return that.logic_.Register(frame.data.registration_data);
 			}	
 		}
    /*

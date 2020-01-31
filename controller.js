@@ -2,8 +2,10 @@
 const rmq = require('./MQ/AMQP.js');
 const model = require('./model.js');
 
-const APP_QUEUE = 'applicant_queue';
-const ADMIN_QUEUE = 'admin_queue';
+import ENV from 'env.json';
+
+const APP_QUEUE = ENV.queues.APP_QUEUE;
+const ADMIN_QUEUE = ENV.queues.ADMIN_QUEUE;
 
 class Controller {
   constructor() {

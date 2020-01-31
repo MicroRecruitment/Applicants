@@ -1,7 +1,7 @@
 'use strict';
 const rmq = require('./MQ/AMQP.js');
 const model = require('./model.js');
-const ENV = require('env.json');
+const ENV = require('./env.json');
 
 const APP_QUEUE = ENV.queues.APP_QUEUE;
 const ADMIN_QUEUE = ENV.queues.ADMIN_QUEUE;

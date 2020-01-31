@@ -1,17 +1,35 @@
 var db = require('./integration.js');
 
 class Model {
-  Register(data) {
-    console.log(data);
-		console.log('Applicant (Model)');
-    var dat = {
-      name: 'Linus',
-      surname: 'Berg',
-      password: 'lol',
-      username: 'big',
+  async Register(registration_data) {
+    console.log('Applicant (Model)');
+    console.log(registration_data);
+
+    var db_data = {
+      name: registration_data.name,
+      surname: registration_data.surname,
+      ssn: registration_data.ssn,
+      email: registration_data.email,
+      username: registration_data.username,
+      password: registration_data.password
       role_id: 1
     }
-    db.AddUser(dat, null);
+
+    var result = await db.AddUser(db_data);
+    
+    var ret = {
+      status: false,
+      result: []
+    }
+
+    if ('error' in result) {
+      console.log('DB Failed');
+    } else {
+      console.log('DB Success');
+      ret.status = true;
+      ret.result = result;
+    }
+    return ret;
   }
 }
 module.exports = Model

@@ -2,24 +2,23 @@
 const rmq = require('./MQ/AMQP.js');
 const model = require('./model.js');
 
-const APP_QUEUE = 'applicant_queue';
+const APP_QUEUE = 'applicant_queue_linus';
 const ADMIN_QUEUE = 'admin_queue';
 
 class Controller {
   constructor() {
-		var that = this;
-
-		this.logic_ = new model();
-		this.fnc_ = {
-			register: function(frame) {
-				console.log('Registering.');
-				that.logic_.Register(frame.registration_data);
+    var that = this;
+    this.logic_ = new model();
+    this.fnc_ = {
+      register: async function(frame) {
+        console.log('Registering.');
+        return that.logic_.Register(frame.registration_data);
 			}	
 		}
-	 /*
-		* Create new amqp connection with randomly generated
+   /*
+    * Create new amqp connection with randomly generated
 		* consumption queue.
-		*/
+    */
     this.mq_ = new rmq(APP_QUEUE, this.Process.bind(this));
   }
 
@@ -28,18 +27,22 @@ class Controller {
 	* @author: Linus Berg
 	* @param {obj} Message object from RabbitMQ.
 	*/
-  Process(msg) {
-    var recv_frame = JSON.parse(msg.content.toString());
+  Process(recv_frame) {
+    var that = this;
+    console.log('Applicant (Controller MQ)');
+    this.fnc_[recv_frame.data.call](recv_frame).then(function(result) {
+      var snd_frame = {
+        status: result.status,
+        result: result.result,
+        /* Call id */
+        call_id: recv_frame.data.call_id
+      };
 
-		console.log('Applicant (Controller MQ)');
-		this.fnc_[recv_frame.data.call](recv_frame);
+      that.mq_.Send(recv_frame.reply, snd_frame);
+    }).catch(e => {
+      console.log(e); 
+    });
 
-		var snd_frame = {
-			response: 'OK',
-			call_id: recv_frame.call_id,
-			client_id: recv_frame.data.client_id
-		};
-    this.mq_.Send(recv_frame.reply, snd_frame);
   }
 }
 

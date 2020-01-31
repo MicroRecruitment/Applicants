@@ -16,7 +16,7 @@ class Database {
     this.connection_ = conn;
   }
 
-  AddUser(data, cb) {
+  async AddUser(data, cb) {
 		console.log('Applicant Integration');
     var binds = [
       data.person_id,
@@ -26,13 +26,7 @@ class Database {
       data.password,
       data.role_id
     ];
-    this.connection_.query(INSERT, binds, function (err, rows, sqlca) {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(rows);
-      }
-    });
+    return this.connection_.querySync(INSERT, binds);
   }
 }
 

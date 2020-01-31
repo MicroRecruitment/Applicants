@@ -43,12 +43,9 @@ class AMQP {
     }).bind(this));
     
     var that = this;
-
     function _process(msg) {
-      console.log(" [x] Received %s", msg.content.toString());
-      that.cb_(msg);
+      that.cb_(JSON.parse(msg.content.toString()));
       ch.ack(msg);
-      console.log(" [x] Done");
     }
   }
 }

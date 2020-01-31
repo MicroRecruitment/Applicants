@@ -3,7 +3,7 @@ const rmq = require('./MQ/AMQP.js');
 const model = require('./model.js');
 const ENV = require('./env.json');
 
-const APP_QUEUE = ENV.queues.APP_QUEUE
+const APP_QUEUE = ENV.queues.APP_QUEUE;
 
 class Controller {
   constructor() {

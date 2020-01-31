@@ -17,6 +17,7 @@ class Database {
   }
 
   AddUser(data, cb) {
+		console.log('Applicant Integration');
     var binds = [
       data.person_id,
       data.name,
@@ -35,12 +36,4 @@ class Database {
   }
 }
 
-var test = new Database();
-var dat = {
-  name: 'Linus',
-  surname: 'Berg',
-  password: 'lol',
-  username: 'big',
-  role_id: 1
-}
-//test.AddUser(dat, null);
+module.exports = new Database();

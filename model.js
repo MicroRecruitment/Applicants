@@ -1,25 +1,16 @@
 var db = require('./integration.js');
 
-class Model {
-  async Register(registration_data) {
-    console.log('Applicant (Model)');
-    console.log(registration_data);
+class ReturnObj {
+  constructor(status, result) {
+    this.status = status;
+    this.result = result;
+  }
+}
 
-    var db_data = {
-      name: registration_data.name,
-      surname: registration_data.surname,
-      ssn: registration_data.ssn,
-      email: registration_data.email,
-      username: registration_data.username,
-      password: registration_data.password,
-      role_id: 1
-    }
-    var result = await db.AddUser(db_data);
-    
-    var ret = {
-      status: false,
-      result: []
-    }
+class Model {
+  async GetAllUsers() {
+    let result = await db.GetAllUsers();
+    let ret = new ReturnObj(false, []);
 
     if ('error' in result) {
       console.log('--- DB Failed ---');
@@ -30,6 +21,22 @@ class Model {
       ret.result = result;
     }
     return ret;
+  }
+
+  async GetAllApplicants() {
+    let result = await db.GetAllApplicants();
+    let ret = new ReturnObj(false, []);
+
+    if ('error' in result) {
+      console.log('--- DB Failed ---');
+      console.log(result);
+    } else {
+      console.log('DB Success');
+      ret.status = true;
+      ret.result = result;
+    }
+    return ret;
+
   }
 }
 module.exports = Model

@@ -3,18 +3,22 @@ const rmq = require('./MQ/AMQP.js');
 const model = require('./model.js');
 const ENV = require('./env.json');
 
-const APP_QUEUE = ENV.queues.APP_QUEUE;
-const ADMIN_QUEUE = ENV.queues.ADMIN_QUEUE;
+const APP_QUEUE = ENV.queues.APP_QUEUE
 
 class Controller {
   constructor() {
-    var that = this;
+    let that = this;
     this.logic_ = new model();
     this.fnc_ = {
-      register: async function(frame) {
-        console.log('Register controller fnc');
-        return that.logic_.Register(frame.data.registration_data);
-			}	
+      /* Register handler */
+      GetAllUsers: async function(frame) {
+        console.log('GetAllUsers');
+        return that.logic_.GetAllUsers();
+			},
+      GetAllApplicants: async function(frame) {
+        console.log('GetAllApplicants');
+        return that.logic_.GetAllApplicants(); 
+      }
 		}
    /*
     * Create new amqp connection with randomly generated
@@ -29,21 +33,29 @@ class Controller {
 	* @param {obj} Message object from RabbitMQ.
 	*/
   Process(recv_frame) {
-    var that = this;
-    console.log('Applicant (Controller MQ)');
-    this.fnc_[recv_frame.data.call](recv_frame).then(function(result) {
-      var snd_frame = {
-        status: result.status,
-        result: result.result,
+    let that = this;
+    console.log('API Gateway Sent:', recv_frame);
+    
+    /* Metadata */
+    const fnc = recv_frame.metadata.call;
+    const call_id = recv_frame.metadata.call_id;
+    const reply_queue = recv_frame.metadata.reply;
+    
+    this.fnc_[fnc](recv_frame).then(function(result) {
+      let metadata = {
         /* Call id */
-        call_id: recv_frame.data.call_id
+        call_id: call_id 
       };
 
-      that.mq_.Send(recv_frame.reply, snd_frame);
+      let content = {
+        status: result.status,
+        result: result.result
+      };
+
+      that.mq_.Send(reply_queue, metadata, content);
     }).catch(e => {
       console.log(e); 
     });
-
   }
 }
 

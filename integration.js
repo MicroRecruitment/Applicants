@@ -10,13 +10,11 @@ class Database {
   }
 
   async GetAllUsers() {
-		console.log('GetAllUsers(DB)');
     let binds = [];
     return this.connection_.querySync(GET_ALL_USERS, binds);
   }
   
   async GetAllApplicants() {
-		console.log('GetAllApplicants(DB)');
     let binds = [];
     return this.connection_.querySync(GET_ALL_APPS, binds);
   }

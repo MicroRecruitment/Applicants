@@ -18,6 +18,9 @@ class Controller {
       GetAllApplicants: async function(frame) {
         console.log('GetAllApplicants');
         return that.logic_.GetAllApplicants(); 
+      },
+      SetApplicant: async function(frame) {
+        return that.logic_.SetApplicant(frame.content); 
       }
 		}
    /*

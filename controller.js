@@ -21,6 +21,9 @@ class Controller {
       },
       SetApplicant: async function(frame) {
         return that.logic_.SetApplicant(frame.content); 
+      },
+      Apply: async function(frame) {
+        return that.logic_.Apply(frame.content);
       }
 		}
    /*

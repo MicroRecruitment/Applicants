@@ -22,6 +22,11 @@ class Model {
     }
     return ret;
   }
+  
+  async Apply(applicant_data) {
+    /* TODO implement */
+    return true;
+  }
 
   async GetAllApplicants() {
     let result = await db.GetAllApplicants();

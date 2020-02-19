@@ -1,6 +1,6 @@
 var db = require('./integration.js');
 
-class ReturnObj {
+class Result {
   constructor(status, result) {
     this.status = status;
     this.result = result;
@@ -8,40 +8,34 @@ class ReturnObj {
 }
 
 class Model {
-  async GetAllUsers() {
-    let result = await db.GetAllUsers();
-    let ret = new ReturnObj(false, []);
-
+  async ProcessResult(result) {
+    let ret = new Result(false, []);
     if ('error' in result) {
-      console.log('--- DB Failed ---');
-      console.log(result);
     } else {
-      console.log('DB Success');
       ret.status = true;
       ret.result = result;
     }
     return ret;
   }
   
-  async Apply(applicant_data) {
-    /* TODO implement */
-    return true;
+  async GetAllUsers() {
+    let result = await db.GetAllUsers();
+    return await this.ProcessResult(result);
+  }
+  
+  async SetApplicant(applicant_data) {
+    let result = await db.SetApplicant(applicant_data);
+    return await this.ProcessResult(result);
+  }
+
+  async Apply(application_data) {
+    let result = await db.Apply(application_data);
+    return await this.ProcessResult(result);
   }
 
   async GetAllApplicants() {
     let result = await db.GetAllApplicants();
-    let ret = new ReturnObj(false, []);
-
-    if ('error' in result) {
-      console.log('--- DB Failed ---');
-      console.log(result);
-    } else {
-      console.log('DB Success');
-      ret.status = true;
-      ret.result = result;
-    }
-    return ret;
-
+    return await this.ProcessResult(result);
   }
 }
 module.exports = Model

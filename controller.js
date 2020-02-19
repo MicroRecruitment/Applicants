@@ -10,18 +10,26 @@ class Controller {
     let that = this;
     this.logic_ = new model();
     this.fnc_ = {
-      /* Register handler */
       GetAllUsers: async function(frame) {
-        console.log('GetAllUsers');
         return that.logic_.GetAllUsers();
 			},
       GetAllApplicants: async function(frame) {
-        console.log('GetAllApplicants');
         return that.logic_.GetAllApplicants(); 
       },
+      /*
+       * INPUT
+       * frame.status - Application status to set
+       * frame.email - Email of user to set
+       */
       SetApplicant: async function(frame) {
         return that.logic_.SetApplicant(frame.content); 
       },
+      /*
+       * INPUT
+       * frame.username - Email of user to set
+       * frame.competence - Array of competences
+       * frame.availability - Array of availability.
+       */
       Apply: async function(frame) {
         return that.logic_.Apply(frame.content);
       }

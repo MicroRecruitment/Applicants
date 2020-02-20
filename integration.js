@@ -4,6 +4,7 @@ const URL = 'DATABASE=BLUDB;HOSTNAME=dashdb-txn-sbox-yp-lon02-01.services.eu-gb.
 const GET_ALL_USERS = 'SELECT name, surname, email FROM person';
 const GET_ALL_APPS = 'SELECT name, surname, email, status FROM person WHERE status = 1';
 
+const GET_COMPETENCES = 'SELECT competence_id, name FROM competence';
 const SET_APPLICANT = 'UPDATE person SET status = ? WHERE username = ?';
 class Database {
   constructor() {
@@ -22,7 +23,13 @@ class Database {
     ];
     return this.connection_.querySync(SET_APPLICANT, binds);
   }
-  
+
+  async GetCompetences() {
+    let binds = [];
+    return this.connection_.querySync(GET_COMPETENCES, binds);
+
+  }
+
   async Apply(application_data) {
     /* TODO: IMPLEMENT */ 
     return [];

@@ -17,7 +17,11 @@ class Model {
     }
     return ret;
   }
-  
+  async GetCompetences() {
+    let result = await db.GetCompetences();
+    return await this.ProcessResult(result);
+
+  }
   async GetAllUsers() {
     let result = await db.GetAllUsers();
     return await this.ProcessResult(result);

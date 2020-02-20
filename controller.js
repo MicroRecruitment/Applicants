@@ -13,6 +13,9 @@ class Controller {
       GetAllUsers: async function(frame) {
         return that.logic_.GetAllUsers();
 			},
+      GetCompetences: async function(frame) {
+        return that.logic_.GetCompetences();
+      }
       GetAllApplicants: async function(frame) {
         return that.logic_.GetAllApplicants(); 
       },

@@ -35,6 +35,7 @@ class Model {
 
   async GetAllApplicants() {
     let result = await db.GetAllApplicants();
+    console.log(result);
     return await this.ProcessResult(result);
   }
 }

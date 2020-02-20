@@ -19,14 +19,14 @@ class Controller {
       /*
        * INPUT
        * frame.status - Application status to set
-       * frame.email - Email of user to set
+       * frame.username - Username of user to set
        */
       SetApplicant: async function(frame) {
         return that.logic_.SetApplicant(frame.content); 
       },
       /*
        * INPUT
-       * frame.username - Email of user to set
+       * frame.username - Username of user to set
        * frame.competence - Array of competences
        * frame.availability - Array of availability.
        */

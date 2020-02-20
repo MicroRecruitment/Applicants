@@ -2,7 +2,7 @@ const db = require('ibm_db');
 const URL = 'DATABASE=BLUDB;HOSTNAME=dashdb-txn-sbox-yp-lon02-01.services.eu-gb.bluemix.net;PORT=50000;PROTOCOL=TCPIP;UID=vrj51280;PWD=kd7l76c81-81v28q;';
 
 const GET_ALL_USERS = 'SELECT name, surname, email FROM person';
-const GET_ALL_APPS = 'SELECT name, surname, email, status FROM person WHERE status == 1';
+const GET_ALL_APPS = require('fs').readFileSync('./sql/get_all_apps.sql').toString();
 
 const SET_APPLICANT = 'UPDATE person SET status = ? WHERE username = ?';
 class Database {

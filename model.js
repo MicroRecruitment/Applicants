@@ -11,6 +11,7 @@ class Model {
   async ProcessResult(result) {
     let ret = new Result(false, []);
     if ('error' in result) {
+      console.log(result);
     } else {
       ret.status = true;
       ret.result = result;

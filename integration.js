@@ -6,7 +6,7 @@ const GET_ALL_USERS = 'SELECT name, surname, email FROM person';
 const GET_ALL_APPS = require('fs').readFileSync('./sql/get_all_apps.sql').toString();
 
 const GET_COMPETENCES = 'SELECT competence_id, name FROM competence';
-const SET_APPLICANT = 'UPDATE person SET status = ? WHERE username = ?';
+const SET_APPLICANT = 'UPDATE person SET status = ? WHERE person_id = ?';
 class Database {
   constructor() {
     this.connection_ = db.openSync(URL);
@@ -18,7 +18,8 @@ class Database {
   }
 
   async SetApplicant(applicant_data) {
-    let binds = [applicant_data.status, applicant_data.username];
+    let binds = [applicant_data.status, applicant_data.id];
+    console.log(binds);
     return this.connection_.querySync(SET_APPLICANT, binds);
   }
 

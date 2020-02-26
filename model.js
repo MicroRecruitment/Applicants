@@ -20,13 +20,12 @@ class Model {
   async GetCompetences() {
     let result = await db.GetCompetences();
     return await this.ProcessResult(result);
-
   }
   async GetAllUsers() {
     let result = await db.GetAllUsers();
     return await this.ProcessResult(result);
   }
-  
+
   async SetApplicant(applicant_data) {
     let result = await db.SetApplicant(applicant_data);
     return await this.ProcessResult(result);
@@ -43,4 +42,4 @@ class Model {
     return await this.ProcessResult(result);
   }
 }
-module.exports = Model
+module.exports = Model;

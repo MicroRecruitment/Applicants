@@ -12,7 +12,12 @@ class AMQP {
     this.ready_ = new Promise(function(resolve, reject) {
       this.open = amqp.connect(HOST);
       this.open.then(this.Setup.bind(this))
-               .then(() => resolve(true));
+               .then(() => resolve(true))
+               .catch(err => {
+                 console.error('Could not connect to RabbitMQ');
+                 console.error(err);
+                 process.exit();
+               });
     }.bind(this)); 
   }
 
@@ -44,7 +49,11 @@ class AMQP {
       ch.consume(q.queue, _process, {
         noAck: false
       });
-    }).bind(this));
+    }).bind(this)).catch(err => {
+      console.error('Could not create Consumer Queue');
+      console.error(err);
+      process.exit();
+    });
     
     var that = this;
     function _process(msg) {

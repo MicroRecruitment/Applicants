@@ -7,6 +7,10 @@ const GET_ALL_APPS = require('fs').readFileSync('./sql/get_all_apps.sql').toStri
 
 const GET_COMPETENCES = 'SELECT competence_id, name FROM competence';
 const SET_APPLICANT = 'UPDATE person SET status = ? WHERE person_id = ?';
+
+const ADD_AVAILABILITY = 'INSERT INTO availability (person_id, from_date, to_date) VALUES(?, ?, ?)';
+const ADD_COMPETENCE = 'INSERT INTO competence_profile (person_id, competence_id, years_of_experience) VALUES(?, ?, ?)';
+
 class Database {
   constructor() {
     this.connection_ = db.openSync(URL);
@@ -19,7 +23,6 @@ class Database {
 
   async SetApplicant(applicant_data) {
     let binds = [applicant_data.status, applicant_data.id];
-    console.log(binds);
     return this.connection_.querySync(SET_APPLICANT, binds);
   }
 
@@ -29,9 +32,28 @@ class Database {
   }
 
   async Apply(application_data) {
-    /* TODO: IMPLEMENT */
+    const user = application_data.id;
+    for (let i = 0; i < application_data.avail.length; ++i) {
+      const availability = application_data.avail[i];
+      const binds = [
+        user,
+        availability.from,
+        availability.to
+      ];
+      this.connection_.querySync(ADD_AVAILABILITY, binds);
+    }
+    
+    for (let i = 0; i < application_data.comp.length; ++i) {
+      const availability = application_data.comp[i];
+      const binds = [
+        user,
+        availability.years,
+      ];
+      this.connection_.querySync(ADD_COMPETENCE, binds);
+    }
 
-    return [];
+    this.SetApplicant({status: 1, id: user});
+    return true;
   }
 
   async GetAllApplicants() {

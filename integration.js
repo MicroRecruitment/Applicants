@@ -40,20 +40,24 @@ class Database {
         availability.from,
         availability.to
       ];
-      this.connection_.querySync(ADD_AVAILABILITY, binds);
+      console.log('AVAIL BINDS', binds);
+      let res = this.connection_.querySync(ADD_AVAILABILITY, binds);
+      console.log(res); 
     }
     
     for (let i = 0; i < application_data.comp.length; ++i) {
-      const availability = application_data.comp[i];
+      const competence = application_data.comp[i];
       const binds = [
         user,
-        availability.years,
+        competence.id,
+        competence.years,
       ];
-      this.connection_.querySync(ADD_COMPETENCE, binds);
+      let res = this.connection_.querySync(ADD_COMPETENCE, binds);
+      console.log(res); 
     }
 
     this.SetApplicant({status: 1, id: user});
-    return true;
+    return [];
   }
 
   async GetAllApplicants() {

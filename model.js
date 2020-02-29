@@ -59,6 +59,7 @@ class Model {
 	* @return {obj} Queue Reply Status.
 	*/
   async Apply(application_data) {
+    console.log(application_data);
     let result = await db.Apply(application_data);
     return await this.ProcessResult(result);
   }

@@ -1,14 +1,13 @@
 'use strict';
 const express = require('express');
 const http = require('http');
-
 const ctrl = require('./controller.js');
 
-var app = express();
-var srv = http.createServer(app);
-const PORT = Math.round(Math.random() * 40000);
+/* Routes */
+const app = express();
+const srv = http.createServer(app);
+const PORT = 8080;
 
-app.use(express.static('./public'));
 var controller = new ctrl();
 
 srv.listen(PORT, function() {

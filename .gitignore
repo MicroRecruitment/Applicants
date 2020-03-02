@@ -104,4 +104,4 @@ dist
 .tern-port
 
 # ENV
-env.json
+#env.json

@@ -11,6 +11,8 @@ You start it by running npm start.
 The code consists of multiple parts, the application is split up into different parts using MVC structure.
 | Folder/File        | Description          |
 | ------------- |:------------- |
+| .prettierrc | Automatic file formatting style config. |
+| env.example.json | Environment file for queues, edit these to your liking. |
 | app.js | This simply connects all the pieces together, barely anything should be implemented here. |
 | MQ/ | This folder contains all code for the message queue connection. |
 | sql/ | These are where the longer sql statements are stored to be read into the integration layer |

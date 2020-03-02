@@ -25,7 +25,7 @@ class Controller {
        * frame.username - Username of user to set
        */
       SetApplicant: async function(frame) {
-        console.log("Controller: SetApplicant");
+        console.log('Controller: SetApplicant');
         console.log(frame);
         return that.logic_.SetApplicant(frame.content);
       },

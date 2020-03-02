@@ -1,4 +1,4 @@
-# Applicants
+# Applicants - [The project wiki](https://microrecruitment.github.io/)
 
 ## Installation
 npm install
@@ -18,7 +18,3 @@ The code consists of multiple parts, the application is split up into different 
 | | Adding new functions for calling from the queue is done in the controller. |
 | model.js  | This is the model layer and contains all code for business logic. |
 | integration.js  | The integration file manages the database connection and the functionality associated with this service.  |
-## [The project wiki](https://microrecruitment.github.io/)
-The Applicats service provides backend support for applying for jobs and handeling applications. e.g. when an admin wants to retrieve all applications or an applicant submits his/hers application.
-
-app.js starts the application
